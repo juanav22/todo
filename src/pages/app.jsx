@@ -1,35 +1,35 @@
-import React from "react";
+import React from 'react';
 
-import AddTask from "../organisms/add-task";
+import AddTask from '../organisms/add-task';
 import Header from "../molecules/header";
-import Layout from "../templates/layout";
-import TasksGroup from "../organisms/tasks-group";
+import Layout from '../templates/layout';
+import TasksGroup from '../organisms/tasks-group';
+
 
 function App() {
   const [tasks, setTasks] = React.useState([]);
-  
-  const addTask = (taskName) => {
-    console.log(taskName);
-    const isTaskNameInTasks = tasks.includes(taskName.toLowerCase());
 
-    if (!isTaskNameInTasks && taskName !== " ") {
-      setTasks([ ...tasks, taskName.toLowerCase()]);
+  const addTask = (taskName) => {
+    const isValidTaskName = !tasks.includes(taskName.toLowerCase()) && taskName !== '';
+
+    if (isValidTaskName) {
+      setTasks([...tasks, taskName.toLowerCase()]);
     }
   };
 
-  const deleteTask = (taskToDelete) => {
-    const filteredTaskList = tasks.filter((task) => task !== taskToDelete);
+  const deleteTaks = (taskToDelete) => {
+    const filteredTaksList = tasks.filter((task) => task !== taskToDelete);
 
-    setTasks(filteredTaskList);
+    setTasks(filteredTaksList);
   };
 
   return (
     <Layout>
       <Header />
-      <AddTask onAddClick={addTask} />
-      <TasksGroup taskList={tasks} onDeleteTask={deleteTask} />
-    </Layout> 
-  );
-}
+      <AddTask onAddClick={addTask}/>
+      <TasksGroup taskList={tasks} onDeleteTask={deleteTaks}/>
+    </Layout>
+  )
+  };
 
 export default App;
